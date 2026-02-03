@@ -1,0 +1,212 @@
+:root{
+  --bg1:#0d0f14;
+  --bg2:#141823;
+  --pink:#ff4d8d;
+  --pink2:#ff86b6;
+  --blue:#6aa9ff;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.75);
+  --card:rgba(18,22,37,0.75);
+  --border:rgba(255,255,255,0.12);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1000px 600px at 20% 18%, rgba(255,77,141,0.28), transparent 60%),
+    radial-gradient(900px 520px at 82% 28%, rgba(106,169,255,0.18), transparent 60%),
+    radial-gradient(700px 420px at 55% 80%, rgba(255,134,182,0.18), transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+  overflow-x:hidden; /* ✅ mobile scroll ok */
+}
+
+/* floating hearts layer */
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0.25;
+  filter: blur(0.2px);
+}
+
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation: floatUp linear infinite;
+  opacity:0.0;
+}
+
+@keyframes floatUp{
+  0% { transform: translateY(40px) scale(0.9); opacity:0; }
+  15%{ opacity: 0.55; }
+  85%{ opacity: 0.55; }
+  100%{ transform: translateY(-120vh) scale(1.15); opacity:0; }
+}
+
+.wrap{
+  width:min(920px, 92vw);
+  padding:30px;
+  border:1px solid rgba(255,77,141,0.22);
+  border-radius:20px;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  position:relative;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,77,141,0.22);
+  background: rgba(255,77,141,0.10);
+  color: rgba(255,255,255,0.85);
+  font-size:12px;
+  letter-spacing:0.4px;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0 0 10px;
+  font-size: clamp(30px, 4vw, 48px);
+  letter-spacing: 0.4px;
+  line-height:1.1;
+}
+
+p{
+  margin:0 0 22px;
+  color:var(--muted);
+  font-size: 16px;
+  line-height:1.6;
+  max-width: 58ch;
+}
+
+.stage{
+  position:relative;
+  height: 340px;
+  border-radius: 18px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:
+    radial-gradient(600px 260px at 50% 20%, rgba(255,77,141,0.14), transparent 60%),
+    rgba(0,0,0,0.14);
+  overflow:hidden;
+}
+
+.btn{
+  position:absolute;
+  padding: 14px 22px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  font-size: 16px;
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease, opacity .2s ease;
+  user-select:none;
+  touch-action: manipulation;
+  will-change: transform, left, top;
+}
+
+.btn:hover{
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+  transform: translateY(-1px);
+}
+
+.yes{
+  background: rgba(255,77,141,0.18);
+  border-color: rgba(255,77,141,0.35);
+}
+.yes:hover{ background: rgba(255,77,141,0.28); }
+
+.no{
+  background: rgba(106,169,255,0.10);
+  border-color: rgba(106,169,255,0.24);
+}
+
+/* pos iniziali */
+#yesBtn{ left: 22%; top: 60%; }
+#noBtn{ left: 58%; top: 60%; }
+
+.soft-note{
+  position:absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  padding: 10px 14px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  color: rgba(255,255,255,0.78);
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events:none;
+  white-space: nowrap;
+}
+.soft-note.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(2px);
+}
+
+/* success */
+.success{
+  display:none;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  border:1px solid rgba(255,77,141,0.26);
+  background: rgba(255,77,141,0.10);
+  align-items:center;
+  gap: 18px;
+}
+.success.show{ display:flex; }
+
+.success img{
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.success h2{
+  margin:0 0 6px;
+  font-size: 22px;
+}
+.success small{ color: rgba(255,255,255,0.82); }
+
+.hint{
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Mobile: bottoni + success in colonna */
+@media (max-width: 600px){
+  #yesBtn{ left: 12%; top: 62%; }
+  #noBtn{ left: 55%; top: 62%; }
+  .stage{ height: 360px; }
+
+  .success{
+    flex-direction: column;
+    text-align: center;
+  }
+  .success img{
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+  }
+  .success h2{ font-size: 20px; }
+  .success small{ font-size: 14px; line-height: 1.5; }
+}
